@@ -24,10 +24,10 @@ def bubble_sort(lista):
                 ordenado = False
     return lista
 
-def sort_segment(arr):
+def sort_segment(arr, sorted_segments):
     sorted_segments.append(bubble_sort(arr))
 
-def merge(arr1, arr2):
+def merge(arr1, arr2, merge_array):
     result = []
     i, j = 0, 0
     while i < len(arr1) and j < len(arr2):
@@ -61,10 +61,10 @@ if __name__ == "__main__":
 
     # array aleatorio
     random.seed(100)
-    array = [random.randint(1, 100) for i in range(n)]
+    array = [random.randint(1, 10000) for i in range(n)]
 
     # dividindo o array em k segmentos
-    segments = split_array(array,k)
+    segments_list = split_array(array,k)
 
     thread_list = []
     sorted_segments = []
@@ -72,25 +72,30 @@ if __name__ == "__main__":
     start_time = time.time() # inicia a contagem do tempo com threads
 
     # Ordenacao dos segmentos por threads
-    for i in segments:
-        thread = threading.Thread(target=sort_segment, args=(i,))
+    for segment in segments_list:
+        thread = threading.Thread(target=sort_segment, args=(segment,sorted_segments,))
         thread.start()
+        thread_list.append(thread)
+    for thread in thread_list:
         thread.join()
 
     # Merge dos segmentos ordenados
     while len(sorted_segments) > 1:
         merge_array = []
+        thread_list = []
 
         for i in range(0, len(sorted_segments) - 1, 2):
-            thread = threading.Thread(target=merge, args=(sorted_segments[i], sorted_segments[i + 1]))
+            thread = threading.Thread(target=merge, args=(sorted_segments[i], sorted_segments[i + 1], merge_array,))
             thread.start()
+            thread_list.append(thread)
+        for thread in thread_list:
             thread.join()
 
         # Merge do último segmento, se houver
         if len(sorted_segments) % 2 == 1:
             merge_array.append(sorted_segments[-1])
-
         sorted_segments = merge_array
+
     end_time = time.time()  # finaliza a contagem do tempo com threads
 
     print(f"Tempo total de execução: {end_time - start_time:.6f} segundos")
