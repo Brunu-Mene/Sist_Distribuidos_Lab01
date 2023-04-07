@@ -15,7 +15,7 @@ $ python3 lab_01_threads.py {qtd_threads} {tam_vetor}
 https://drive.google.com/file/d/1E6dDy_tjK5xDBRRNZx16DMhmG3PYK99m/view?usp=sharing
 
 ---
-## Implementação e Testes e Conclusões
+## Implementação, Testes e Conclusões
 
 ### Construindo o Ambiente
 Os testes foram realizados em um processador Intel 11ª geração Core i7-11390H @ 3.40GHz × 8.
