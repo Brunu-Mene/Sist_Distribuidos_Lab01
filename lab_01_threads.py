@@ -25,8 +25,8 @@ def bubble_sort(lista):
     return lista
 
 def sort_segment(arr, sorted_segments, thread_id):
-    print(f"Thread ID {thread_id}: Total de Elementos Ordenados {len(arr)}")
     sorted_segments.append(bubble_sort(arr))
+    print(f"Thread ID {thread_id}: Total de Elementos Ordenados {len(arr)}")
 
 def merge(arr1, arr2, merge_array):
     result = []
@@ -73,12 +73,13 @@ if __name__ == "__main__":
     start_time = time.time() # inicia a contagem do tempo com threads
 
     # Ordenacao dos segmentos por threads
-    thread_id = 0
+    thread_id = 1
     for segment in segments_list:
         thread = threading.Thread(target=sort_segment, args=(segment,sorted_segments,thread_id, ))
         thread_id += 1
         thread.start()
         thread_list.append(thread)
+
     for thread in thread_list:
         thread.join()
 
@@ -91,12 +92,14 @@ if __name__ == "__main__":
             thread = threading.Thread(target=merge, args=(sorted_segments[i], sorted_segments[i + 1], merge_array,))
             thread.start()
             thread_list.append(thread)
+
         for thread in thread_list:
             thread.join()
 
         # Merge do último segmento, se houver
         if len(sorted_segments) % 2 == 1:
             merge_array.append(sorted_segments[-1])
+            
         sorted_segments = merge_array
 
     end_time = time.time()  # finaliza a contagem do tempo com threads
