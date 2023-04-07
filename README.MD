@@ -11,6 +11,10 @@
 $ python3 lab_01_threads.py {qtd_threads} {tam_vetor}  
 ```
 ---
+## Link para o vídeo no Drive
+https://drive.google.com/file/d/1E6dDy_tjK5xDBRRNZx16DMhmG3PYK99m/view?usp=sharing
+
+---
 ## Implementação, Testes e Conclusões
 
 ### Construindo o Ambiente
