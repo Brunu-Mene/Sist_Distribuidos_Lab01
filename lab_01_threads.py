@@ -24,7 +24,8 @@ def bubble_sort(lista):
                 ordenado = False
     return lista
 
-def sort_segment(arr, sorted_segments):
+def sort_segment(arr, sorted_segments, thread_id):
+    print(f"Thread ID {thread_id}: Total de Elementos Ordenados {len(arr)}")
     sorted_segments.append(bubble_sort(arr))
 
 def merge(arr1, arr2, merge_array):
@@ -72,8 +73,10 @@ if __name__ == "__main__":
     start_time = time.time() # inicia a contagem do tempo com threads
 
     # Ordenacao dos segmentos por threads
+    thread_id = 0
     for segment in segments_list:
-        thread = threading.Thread(target=sort_segment, args=(segment,sorted_segments,))
+        thread = threading.Thread(target=sort_segment, args=(segment,sorted_segments,thread_id, ))
+        thread_id += 1
         thread.start()
         thread_list.append(thread)
     for thread in thread_list:
@@ -98,4 +101,4 @@ if __name__ == "__main__":
 
     end_time = time.time()  # finaliza a contagem do tempo com threads
 
-    print(f"Tempo total de execução: {end_time - start_time:.6f} segundos")
+    print(f"\nTempo total de execução: {end_time - start_time:.6f} segundos")
