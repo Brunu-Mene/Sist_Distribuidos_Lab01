@@ -26,7 +26,7 @@ def bubble_sort(lista):
 
 def sort_segment(arr, sorted_segments, thread_id):
     sorted_segments.append(bubble_sort(arr))
-    print(f"Thread ID {thread_id}: Total de Elementos Ordenados {len(arr)}")
+    print(f"Thread nº {thread_id}: Total de elementos ordenados: {len(arr)}")
 
 def merge(arr1, arr2, merge_array):
     result = []
